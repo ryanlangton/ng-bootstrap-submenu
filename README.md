@@ -5,12 +5,12 @@ Useful for creating multiple-tier navigation menus using bootstrap styles.
 
 To use, download the js and css from the dist folder.
 
-ng-bootstrap-submenu.min.css
-ng-bootstrap-submenu.min.js
+* ng-bootstrap-submenu.min.css
+* ng-bootstrap-submenu.min.js
 
 Add the bootstrapSubmenu module dependency.
 
-angular.module('myApp', ['bootstrapSubmenu']);
+	angular.module('myApp', ['bootstrapSubmenu']);
 
 Use the <bootstrapSubmenu> directive (with ng-repeat if you have multiple dropdowns).  You must supply a json object
 	to the 'items' attribute.  The supplied object needs to have the following properties:
