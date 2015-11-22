@@ -1,0 +1,21 @@
+{
+  "name": "ng-bootstrap-submenu",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Langton",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7"
+  }
+}
