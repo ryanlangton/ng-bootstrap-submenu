@@ -13,7 +13,7 @@ var gutil = require('gulp-util');
 var config = {
 	paths: {
 		bootstrapSubmenuCss: './lib/bootstrap-submenu-2.0.1-dist/css/*.*',
-		bootstrapSubmenuJs: './lib/bootstrap-submenu-2.0.1-dist/js/bootstrap-submenu.min.js',
+		bootstrapSubmenuJs: './lib/bootstrap-submenu-2.0.1-dist/js/bootstrap-submenu.js',
 		html: './src/*.html',
 		js: './src/*.js',
 		dist: './dist',
@@ -22,26 +22,28 @@ var config = {
 }
 
 gulp.task('clean', function(){
-    gulp.src([config.paths.temp, config.paths.dist], {read: false})
+    return gulp.src([config.paths.temp, config.paths.dist], {read: false})
         .pipe(rimraf());
 });
 
-gulp.task('css', function() {
-	gulp.src(config.paths.bootstrapSubmenuCss)
+gulp.task('css', ['clean'], function() {
+	return gulp.src(config.paths.bootstrapSubmenuCss)
 		.pipe(rename({
 			prefix: "ng-"
 		}))
 		.pipe(gulp.dest(config.paths.dist));
 });
 
-gulp.task('html', function() {
-	gulp.src(config.paths.html)
-		.pipe(templateCache())
+gulp.task('html', ['clean'], function() {
+	return gulp.src(config.paths.html)
+		.pipe(templateCache({
+			module: 'bootstrapSubmenu'
+		}))
 		.pipe(gulp.dest(config.paths.temp));
 });
 
-gulp.task('minjs', ['html'], function() {
-	gulp.src([config.paths.js, config.paths.temp + '/*.js'])
+gulp.task('minjs', ['html', 'clean'], function() {
+	return gulp.src([config.paths.js, config.paths.temp + '/*.js', config.paths.bootstrapSubmenuJs])
 	  	.pipe(jshint())
   		.pipe(jshint.reporter('default'))
   		.pipe(ngAnnotate())
@@ -50,8 +52,8 @@ gulp.task('minjs', ['html'], function() {
 		.pipe(gulp.dest(config.paths.dist));
 });
 
-gulp.task('js', ['html'], function() {
-	gulp.src([config.paths.js, config.paths.temp + '/*.js'])
+gulp.task('js', ['html', 'clean'], function() {
+	return gulp.src([config.paths.js, config.paths.temp + '/*.js', config.paths.bootstrapSubmenuJs])
 	  	.pipe(jshint())
   		.pipe(jshint.reporter('default'))
   		.pipe(ngAnnotate())
@@ -59,4 +61,4 @@ gulp.task('js', ['html'], function() {
 		.pipe(gulp.dest(config.paths.dist));
 });
 
-gulp.task('default', ['html', 'js', 'minjs', 'css']);
+gulp.task('default', ['html', 'js', 'minjs', 'css', 'clean']);
