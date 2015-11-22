@@ -6,7 +6,7 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var ngAnnotate = require('gulp-ng-annotate');
 var rename = require("gulp-rename");
-var rimraf = require('rimraf');
+var rimraf = require('gulp-rimraf');
 var uglify = require('gulp-uglify');
 var gutil = require('gulp-util');
 
