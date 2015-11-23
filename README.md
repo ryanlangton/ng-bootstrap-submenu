@@ -1,8 +1,5 @@
 # ng-bootstrap-submenu
 
-AngularJS module wrapping the 'bootstrap submenu' <a href="http://vsn4ik.github.io/bootstrap-submenu/">JavaScript library.</a>
-Useful for creating multiple-tier navigation menus using bootstrap styles.
-
 To use, download the js and css from the dist folder.
 
 * ng-bootstrap-submenu.min.css
