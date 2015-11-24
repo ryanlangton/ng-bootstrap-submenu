@@ -1,5 +1,7 @@
 # ng-bootstrap-submenu
 
+Demo: <a href="http://plnkr.co/edit/gHzV9d?p=info">plnkr</a>
+
 To use, download the js and css from the dist folder.
 
 * ng-bootstrap-submenu.min.css
@@ -15,8 +17,6 @@ Use the <bootstrapSubmenu> directive (with ng-repeat if you have multiple dropdo
 * href = the link for the item (only necessary for items with no children).
 * display = the text displayed for the item.
 * children = an array of sub-items (may be empty).
-	
-This <a href="http://plnkr.co/edit/BUFaUJG7Ftaw5rIhpwj4">plnkr</a> demonstrates the use of bootstrapSubmenu.
 
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
