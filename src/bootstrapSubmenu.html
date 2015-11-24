@@ -1,6 +1,10 @@
 <li ng-class="getDropdownClass()">
-  <a ng-if="!hasChildren()" tabindex="0" ng-href="{{menuItem.href}}">{{menuItem.display}}</a>
-  <a ng-if="hasChildren()" tabindex="0" data-toggle="dropdown" data-submenu="">
+  <a ng-if="!hasChildren() && isSubMenu" tabindex="0" ng-href="{{menuItem.href}}">{{menuItem.display}}</a>
+  <a ng-if="hasChildren() && isSubMenu" tabindex="0">
+    {{menuItem.display}}<span ng-if="showCaret()" class="caret"></span>
+  </a>
+  <a ng-if="!hasChildren() && !isSubMenu" tabindex="0" ng-href="{{menuItem.href}}" data-toggle="dropdown" data-submenu="">{{menuItem.display}}</a>
+  <a ng-if="hasChildren() && !isSubMenu" tabindex="0" data-toggle="dropdown" data-submenu="">
     {{menuItem.display}}<span ng-if="showCaret()" class="caret"></span>
   </a>
   <ul ng-if="hasChildren()" class="dropdown-menu">
