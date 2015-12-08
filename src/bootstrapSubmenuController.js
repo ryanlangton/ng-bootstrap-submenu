@@ -3,10 +3,8 @@
   .module('bootstrapSubmenu')
   .controller('bootstrapSubmenuController', bootstrapSubmenuController);
 
-  function bootstrapSubmenuController($scope, $timeout){
-      $timeout(function(){
-        $('[data-submenu]').submenupicker();    
-      }, 100);
+  function bootstrapSubmenuController($scope, submenuTrigger){
+      submenuTrigger.trigger();
           
       $scope.getDropdownClass = function(){
         if  (!$scope.hasChildren()) return '';

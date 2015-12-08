@@ -8,7 +8,7 @@
 	        restrict: 'E',
 	        scope: {
 	            menuItem: '=menuItem',
-	            isSubMenu: '=isSubMenu'
+	            isSubMenu: '@isSubMenu'
 	        },
 	        replace: true,
 	        templateUrl: 'bootstrapSubmenu.html',

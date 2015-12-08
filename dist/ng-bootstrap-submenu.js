@@ -6,16 +6,15 @@
   .module('bootstrapSubmenu')
   .controller('bootstrapSubmenuController', bootstrapSubmenuController);
 
-  function bootstrapSubmenuController($scope, $timeout){
-      $timeout(function(){
-        $('[data-submenu]').submenupicker();    
-      }, 100);
+  function bootstrapSubmenuController($scope, submenuTrigger){
+      submenuTrigger.trigger();
           
       $scope.getDropdownClass = function(){
         if  (!$scope.hasChildren()) return '';
         return $scope.isSubMenu ? 'dropdown-submenu': 'dropdown';
       };
       
+      console.log('Menu item: ' + $scope.menuItem.name + ' Submenu: ' + $scope.isSubmenu);
       $scope.showCaret = function(){
         return (!$scope.isSubMenu && $scope.hasChildren());
       };
@@ -24,7 +23,7 @@
         return ($scope.menuItem.children !== undefined && $scope.menuItem.children.length > 0);
       };
   }
-  bootstrapSubmenuController.$inject = ["$scope", "$timeout"];
+  bootstrapSubmenuController.$inject = ["$scope", "submenuTrigger"];
 })();
 (function(){
 	angular
@@ -36,7 +35,7 @@
 	        restrict: 'E',
 	        scope: {
 	            menuItem: '=menuItem',
-	            isSubMenu: '=isSubMenu'
+	            isSubMenu: '@isSubMenu'
 	        },
 	        replace: true,
 	        templateUrl: 'bootstrapSubmenu.html',
@@ -57,7 +56,28 @@
 	}
 	bootstrapSubmenu.$inject = ["$compile"];
 })();
-angular.module("bootstrapSubmenu").run(["$templateCache", function($templateCache) {$templateCache.put("bootstrapSubmenu.html","<li ng-class=\"getDropdownClass()\">\r\n  <!--<a ng-if=\"!hasChildren() && isSubMenu\" tabindex=\"0\" ng-href=\"{{menuItem.href}}\">{{menuItem.display}}</a>\r\n  <a ng-if=\"hasChildren() && isSubMenu\" tabindex=\"0\">\r\n    {{menuItem.display}}<span ng-if=\"showCaret()\" class=\"caret\"></span>\r\n  </a>\r\n  <a ng-if=\"!hasChildren() && !isSubMenu\" tabindex=\"0\" ng-href=\"{{menuItem.href}}\" data-toggle=\"dropdown\" data-submenu=\"\">{{menuItem.display}}</a>\r\n  <a ng-if=\"hasChildren() && !isSubMenu\" tabindex=\"0\" data-toggle=\"dropdown\" data-submenu=\"\">\r\n    {{menuItem.display}}<span ng-if=\"showCaret()\" class=\"caret\"></span>\r\n  </a>-->\r\n  <a tabindex=\"0\" ng-href=\"{{menuItem.href}}\" ng-attr-data-toggle=\"{{ hasChildren() ? \'dropdown\': undefinded }}\" data-submenu=\"\">\r\n    {{menuItem.display}}<span ng-if=\"showCaret()\" class=\"caret\"></span>\r\n  </a>\r\n  <ul ng-if=\"hasChildren()\" class=\"dropdown-menu\">\r\n    <bootstrap-submenu ng-repeat=\"child in menuItem.children\" menu-item=\"child\" is-sub-menu=\"true\">\r\n    </bootstrap-submenu>\r\n  </ul>\r\n</li>");}]);
+(function(){
+  angular
+  .module('bootstrapSubmenu')
+  .factory('submenuTrigger', submenuTrigger);
+
+  function submenuTrigger($timeout){
+	  var triggered = false; 
+	  
+	  return {
+		  trigger: function(){
+			  if (triggered) return;
+			  
+			  // after angularjs digest, trigger submenupicker
+			  $timeout(function(){
+				  $('[data-submenu]').submenupicker();    
+			  }, 100);
+		  }
+	  };
+  }
+  submenuTrigger.$inject = ["$timeout"];
+})();
+angular.module("bootstrapSubmenu").run(["$templateCache", function($templateCache) {$templateCache.put("bootstrapSubmenu.html","<li ng-class=\"getDropdownClass()\">\r\n  <a ng-if=\"!hasChildren()\" tabindex=\"0\" ng-href=\"{{menuItem.href}}\">{{menuItem.display}}</a>\r\n  <a ng-if=\"hasChildren()\" tabindex=\"0\" ng-attr-data-toggle=\"{{ showCaret() ? \'dropdown\' : undefined }}\" ng-attr-data-submenu=\"{{ showCaret() ? \'\' : undefined }}\">\r\n     {{menuItem.display}}<span ng-if=\"showCaret()\" class=\"caret\"></span>\r\n   </a>\r\n  <ul ng-if=\"hasChildren()\" class=\"dropdown-menu\">\r\n    <bootstrap-submenu ng-repeat=\"child in menuItem.children\" menu-item=\"child\" is-sub-menu=\"true\">\r\n    </bootstrap-submenu>\r\n  </ul>\r\n</li>");}]);
 /*!
  * Bootstrap-submenu v2.0.1 (http://vsn4ik.github.io/bootstrap-submenu)
  * Copyright 2015 Vasily A. (https://github.com/vsn4ik)
