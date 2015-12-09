@@ -14,7 +14,6 @@
         return $scope.isSubMenu ? 'dropdown-submenu': 'dropdown';
       };
       
-      console.log('Menu item: ' + $scope.menuItem.name + ' Submenu: ' + $scope.isSubmenu);
       $scope.showCaret = function(){
         return (!$scope.isSubMenu && $scope.hasChildren());
       };
