@@ -15,7 +15,7 @@ Use the <bootstrapSubmenu> directive (with ng-repeat if you have multiple dropdo
 * display = the text displayed for the item.
 * children = an array of sub-items (may be empty).
 
-
+Html:
 
     <div ng-controller="menuController as vm">
         <nav class="navbar navbar-default">
@@ -39,7 +39,7 @@ Use the <bootstrapSubmenu> directive (with ng-repeat if you have multiple dropdo
         </nav>
     </div>
 
-
+Javascript:
 
     angular.module('myApp', ['bootstrapSubmenu']);
 
