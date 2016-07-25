@@ -24,5 +24,6 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "main" :"./dist/ng-bootstrap-submenu.js"
 }
