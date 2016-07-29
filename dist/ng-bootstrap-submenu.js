@@ -2,6 +2,7 @@
 	angular.module('bootstrapSubmenu', []);
 })();
 (function(){
+  bootstrapSubmenuController.$inject = ["$scope", "submenuTrigger"];
   angular
   .module('bootstrapSubmenu')
   .controller('bootstrapSubmenuController', bootstrapSubmenuController);
@@ -22,9 +23,9 @@
         return ($scope.menuItem.children !== undefined && $scope.menuItem.children.length > 0);
       };
   }
-  bootstrapSubmenuController.$inject = ["$scope", "submenuTrigger"];
 })();
 (function(){
+	bootstrapSubmenu.$inject = ["$compile"];
 	angular
 	.module('bootstrapSubmenu')
 	.directive('bootstrapSubmenu', bootstrapSubmenu);
@@ -53,9 +54,9 @@
 	        }
 	    };
 	}
-	bootstrapSubmenu.$inject = ["$compile"];
 })();
 (function(){
+  submenuTrigger.$inject = ["$timeout"];
   angular
   .module('bootstrapSubmenu')
   .factory('submenuTrigger', submenuTrigger);
@@ -74,9 +75,8 @@
 		  }
 	  };
   }
-  submenuTrigger.$inject = ["$timeout"];
 })();
-angular.module("bootstrapSubmenu").run(["$templateCache", function($templateCache) {$templateCache.put("bootstrapSubmenu.html","<li ng-class=\"getDropdownClass()\">\r\n  <a ng-if=\"!hasChildren()\" tabindex=\"0\" ng-href=\"{{menuItem.href}}\">{{menuItem.display}}</a>\r\n  <a ng-if=\"hasChildren()\" tabindex=\"0\" ng-attr-data-toggle=\"{{ showCaret() ? \'dropdown\' : undefined }}\" ng-attr-data-submenu=\"{{ showCaret() ? \'\' : undefined }}\">\r\n     {{menuItem.display}}<span ng-if=\"showCaret()\" class=\"caret\"></span>\r\n   </a>\r\n  <ul ng-if=\"hasChildren()\" class=\"dropdown-menu\">\r\n    <bootstrap-submenu ng-repeat=\"child in menuItem.children\" menu-item=\"child\" is-sub-menu=\"true\">\r\n    </bootstrap-submenu>\r\n  </ul>\r\n</li>");}]);
+angular.module("bootstrapSubmenu").run(["$templateCache", function($templateCache) {$templateCache.put("bootstrapSubmenu.html","<li ng-class=\"getDropdownClass()\">\r\n  <a ng-if=\"!hasChildren()\" tabindex=\"0\" ng-href=\"{{menuItem.href}}\" ng-bind-html=\"menuItem.display\"></a>\r\n  <a ng-if=\"hasChildren()\" tabindex=\"0\" ng-attr-data-toggle=\"{{ showCaret() ? \'dropdown\' : undefined }}\" ng-attr-data-submenu=\"{{ showCaret() ? \'\' : undefined }}\">\r\n    <span ng-bind-html=\"menuItem.display\" ng-if=\"showCaret()\" class=\"caret\"></span>\r\n  </a>\r\n  <ul ng-if=\"hasChildren()\" class=\"dropdown-menu\">\r\n    <bootstrap-submenu ng-repeat=\"child in menuItem.children\" menu-item=\"child\" is-sub-menu=\"true\">\r\n    </bootstrap-submenu>\r\n  </ul>\r\n</li>\r\n");}]);
 /*!
  * Bootstrap-submenu v2.0.1 (http://vsn4ik.github.io/bootstrap-submenu)
  * Copyright 2015 Vasily A. (https://github.com/vsn4ik)
